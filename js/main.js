@@ -137,7 +137,7 @@ window.onload = function() {
 		
 		
 		game.nextAlienAt = 7000 + game.time.now;
-		game.AlienDelay = 7000;	
+		game.AlienDelay = 2000;	
 		
 		
 		
