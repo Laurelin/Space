@@ -25,6 +25,7 @@ window.onload = function() {
 	var cursors;
 	var player;
     var splosions;
+	var logo;
 	
 	
 	
@@ -52,6 +53,7 @@ window.onload = function() {
 		bg.fixedToCamera = true;
 		
 		music = game.add.audio('music');
+		music.onDecoded.add(start, this);//there will be a delay before music starts
 		
 		game.physics.startSystem(Phaser.Physics.P2JS);
 		
@@ -112,10 +114,17 @@ window.onload = function() {
 		moon.bringToTop();
 		earth.bringToTop();	
 		
+			var text = "Click to Start";
+			var style = { font: "85px Arial", fill: "#b0eeff", align: "center" };
+
+			logo = game.add.text(400, 300, text, style);
+			logo.fixedToCamera = true;
+		
 		game.camera.focusOn(earth);
 		game.camera.follow(player);
 
-		music.play();
+		game.paused = true;
+		game.input.onDown.add(unpause, self);
 		
     }
 	
@@ -210,16 +219,33 @@ window.onload = function() {
 			splosionAnimation.reset(player.x, player.y);
 			splosionAnimation.play('splosion', 30, false, true)
 			
-			var text = "You died";
+			var text = "You died!";
 			var style = { font: "65px Arial", fill: "#ff0044", align: "center" };
 
 			var t = game.add.text(500, 0, text, style);
 			t.fixedToCamera = true;
+			
+			text = "Hint: There are no brakes."
+			t = game.add.text(250, 640, text, style);
+			t.fixedToCamera = true;
+			
+			music.stop();
 		
 	}
 	
 	function angleOf(sprite1, sprite2){
 		var ang = Math.atan2(sprite2.y - sprite1.y, sprite2.x - sprite1.x);
 		return ang;
+	}
+	
+	function start(){
+		
+		music.fadeIn(5000);
+	}
+	
+	function unpause(event){
+		
+		logo.destroy();
+		game.paused = false;
 	}
 };
