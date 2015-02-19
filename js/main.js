@@ -26,6 +26,9 @@ window.onload = function() {
 	var player;
     var splosions;
 	var logo;
+	var aliens;
+	var text;
+	var style;
 	
 	
 	
@@ -35,6 +38,11 @@ window.onload = function() {
 		game.load.image('planet', 'imgs/planet.png');
 		game.load.image('moon', 'imgs/moon.png');
 		game.load.image('ov', 'imgs/OV.png');
+		
+		game.load.image('alien1', 'imgs/alien1.png');
+		game.load.image('alien2', 'imgs/alien2.png');
+		game.load.image('alien3', 'imgs/alien3.png');
+		game.load.image('alien4', 'imgs/alien4.png');
 		
 		game.load.spritesheet('splosion', 'imgs/explosion.png', 96, 96, 17);
 		
@@ -111,13 +119,34 @@ window.onload = function() {
         splosionAnimation.animations.add('splosion');
 		}
 		
+		
+		aliens = game.add.group();
+		var d = 0;
+		var sprite;
+		for(var i = 0; i < 40; i++){
+			
+			d++
+			if (d%4 === 0){
+				d = 1;
+			}
+			
+			sprite = aliens.create(1380, 0, 'alien' + d.toString()); 
+			
+		}
+		
+		
+		game.nextAlienAt = 7000 + game.time.now;
+		game.AlienDelay = 7000;	
+		
+		
+		
 		moon.bringToTop();
 		earth.bringToTop();	
 		
-			var text = "Click to Start";
-			var style = { font: "85px Arial", fill: "#b0eeff", align: "center" };
+			var t = "Click to Start";
+			style = { font: "85px Arial", fill: "#b0eeff", align: "center" };
 
-			logo = game.add.text(400, 300, text, style);
+			logo = game.add.text(400, 300, t, style);
 			logo.fixedToCamera = true;
 		
 		game.camera.focusOn(earth);
@@ -192,6 +221,17 @@ window.onload = function() {
 			player.body.setZeroRotation();
 		}
 		
+		if(game.nextAlienAt < game.time.now && aliens.countDead() > 0){
+			game.nextAlienAt = game.time.now + game.AlienDelay;
+			var alien = game.aliens.getFirstExists(false);
+			
+			alien.reset(game.rnd.IntegerInRange(20, 1980), 0);
+			game.physics.p2.enable(alien);
+			
+			alien.body.velocity.y = this.rnd.integerInRange(0,10);
+		}
+
+		
 		bg.tilePosition.x = -game.camera.x;
 		bg.tilePosition.y = -game.camera.y;
 		
@@ -226,7 +266,7 @@ window.onload = function() {
 			t.fixedToCamera = true;
 			
 			text = "Hint: There are no brakes."
-			t = game.add.text(250, 640, text, style);
+			t = game.add.text(270, 640, text, style);
 			t.fixedToCamera = true;
 			
 			music.stop();
