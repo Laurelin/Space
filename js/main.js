@@ -18,6 +18,8 @@ window.onload = function() {
 	var bg;
 	var earth;
 	var moon;
+	var music;
+	var cursors;
 	
     
     function preload() {
@@ -40,7 +42,7 @@ window.onload = function() {
 		bg = game.add.sprite( 0, 0, 'bg');
 		bg.fixedToCamera = true;
 		
-		twinkle = game.add.audio('music');
+		music = game.add.audio('music');
 		
 		earth = game.add.sprite(game.world.centerX, game.world.centerY, 'planet');
 		
