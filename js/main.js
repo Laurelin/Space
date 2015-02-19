@@ -48,6 +48,8 @@ window.onload = function() {
 		
 		moon = game.add.sprite((game.world.centerX + 400), (game.world.centerY - 200), 'moon');
 		cursors = game.input.keyboard.createCursorKeys();
+		
+		game.camera.focusOn(earth);
 
 		
 		
