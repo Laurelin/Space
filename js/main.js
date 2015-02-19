@@ -29,6 +29,7 @@ window.onload = function() {
 	var aliens;
 	var text;
 	var style;
+	var d = 0;
 	
 	
 	
@@ -121,9 +122,9 @@ window.onload = function() {
 		
 		
 		aliens = game.add.group();
-		var d = 0;
+		
 		var sprite;
-		for(var i = 0; i < 40; i++){
+		/*for(var i = 0; i < 40; i++){
 			
 			d++
 			if (d%4 === 0){
@@ -132,7 +133,7 @@ window.onload = function() {
 			
 			sprite = aliens.create(1380, 0, 'alien' + d.toString()); 
 			
-		}
+		}*/
 		
 		
 		game.nextAlienAt = 7000 + game.time.now;
@@ -193,8 +194,6 @@ window.onload = function() {
 		mForce[0] = Math.cos(mAngle)*mGravity;
 		mForce[1] = Math.sin(mAngle)*mGravity;
 		
-		//console.log(x);
-		
 		if (cursors.up.isDown)
 		{
 			var a = player.rotation + Math.PI / 2;
@@ -221,14 +220,17 @@ window.onload = function() {
 			player.body.setZeroRotation();
 		}
 		
+		//make some aliens, fire em off for dodging
 		if(game.nextAlienAt < game.time.now && aliens.countDead() > 0){
 			game.nextAlienAt = game.time.now + game.AlienDelay;
-			var alien = game.aliens.getFirstExists(false);
-			
-			alien.reset(game.rnd.IntegerInRange(20, 1980), 0);
+			d++;
+			if (d%4 === 0){
+				d = 1;
+			}
+			var alien = aliens.create(game.rnd.IntegerInRange(20, 1980), 0, 'alien' + d.toString()); 
 			game.physics.p2.enable(alien);
 			
-			alien.body.velocity.y = this.rnd.integerInRange(0,10);
+			alien.body.velocity.y = this.rnd.integerInRange(10,30);
 		}
 
 		
