@@ -22,10 +22,10 @@ window.onload = function() {
     
     function preload() {
        
-        game.load.sprite('bg', 'imgs/background.jpg');
-		game.load.sprite('planet', 'imgs/planet.png');
-		game.load.sprite('moon', 'imgs/moon.png');
-		game.load.sprite('ov', 'imgs/OV.png');
+        game.load.image('bg', 'imgs/background.jpg');
+		game.load.image('planet', 'imgs/planet.png');
+		game.load.image('moon', 'imgs/moon.png');
+		game.load.image('ov', 'imgs/OV.png');
 		game.load.audio('music', 'audio/USAFBvenus.ogg');
 		game.load.audio('war', 'audio/USAFBmars.ogg');
     }
